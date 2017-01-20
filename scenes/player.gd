@@ -17,7 +17,13 @@ func _input(ie):
 	pass
 
 func _integrate_forces(state):
-	var aim = get_node("yaw").get_global_transform().basis
+	#var aim = get_node("yaw").get_global_transform().basis
+	var aim = get_viewport().get_camera().get_global_transform().basis
+	print(aim)
+	aim[2].y = 0
+	aim[2] = aim[2].normalized()
+	aim[0].y = 0
+	aim[0] = aim[0].normalized()
 	var direction = Vector3()
 	if Input.is_action_pressed("move_forwards"):
 		direction -= aim[2]
