@@ -1,22 +1,139 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://assets/untitled.msh" type="Mesh" id=1]
-[ext_resource path="res://scenes/player.xml" type="PackedScene" id=2]
+[ext_resource path="res://scenes/player.xml" type="PackedScene" id=1]
+[ext_resource path="res://assets/plane.msh" type="Mesh" id=2]
 
-[sub_resource type="ConcavePolygonShape" id=1]
+[sub_resource type="FixedMaterial" id=1]
 
-data = Vector3Array( -0.9998, 1, -1.9073, -0.9998, 1, 0.0925, -0.9998, -0.9998, -1.9073, -0.9998, -0.9998, -1.9073, -0.9998, 1, 0.0925, -0.9998, -0.9998, 0.0925, 1, 1, -1.9073, -0.9998, 1, -1.9073, 1, -0.9998, -1.9073, 1, -0.9998, -1.9073, -0.9998, 1, -1.9073, -0.9998, -0.9998, -1.9073, 1, 1, 0.0925, 1, 1, -1.9073, 1, -0.9998, 0.0925, 1, -0.9998, 0.0925, 1, 1, -1.9073, 1, -0.9998, -1.9073, -0.9998, 1, 0.0925, 1, 1, 0.0925, -0.9998, -0.9998, 0.0925, -0.9998, -0.9998, 0.0925, 1, 1, 0.0925, 1, -0.9998, 0.0925, -0.9998, -0.9998, -1.9073, -0.9998, -0.9998, 0.0925, 1, -0.9998, -1.9073, 1, -0.9998, -1.9073, -0.9998, -0.9998, 0.0925, 1, -0.9998, 0.0925, 1, 1, -1.9073, 1, 1, 0.0925, -0.9998, 1, -1.9073, -0.9998, 1, -1.9073, 1, 1, 0.0925, -0.9998, 1, 0.0925, 4.3791, 0, 4.3791, -4.3789, 0, 4.3791, 4.3791, 0, -4.3789, 4.3791, 0, -4.3789, -4.3789, 0, 4.3791, -4.3789, 0, -4.3789 )
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = false
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = true
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 0.0
+fixed_flags/use_alpha = false
+fixed_flags/use_color_array = false
+fixed_flags/use_point_size = false
+fixed_flags/discard_alpha = false
+fixed_flags/use_xy_normalmap = false
+params/diffuse = Color( 0.204224, 0.0390625, 1, 1 )
+params/specular = Color( 0, 0, 0, 1 )
+params/emission = Color( 0, 0, 0, 1 )
+params/specular_exp = 40
+params/detail_mix = 1.0
+params/normal_depth = 1
+params/shader = 0
+params/shader_param = 0.5
+params/glow = 0
+params/point_size = 1.0
+uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+textures/diffuse_tc = 0
+textures/detail_tc = 0
+textures/specular_tc = 0
+textures/emission_tc = 0
+textures/specular_exp_tc = 0
+textures/glow_tc = 0
+textures/normal_tc = 0
+textures/shade_param_tc = 0
+
+[sub_resource type="ConcavePolygonShape" id=2]
+
+data = Vector3Array( 5, 0, 5, -4.9998, 0, 5, 5, 0, -4.9998, 5, 0, -4.9998, -4.9998, 0, 5, -4.9998, 0, -4.9998 )
+
+[sub_resource type="FixedMaterial" id=3]
+
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = false
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = true
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 1.4013e-45
+fixed_flags/use_alpha = false
+fixed_flags/use_color_array = false
+fixed_flags/use_point_size = false
+fixed_flags/discard_alpha = false
+fixed_flags/use_xy_normalmap = false
+params/diffuse = Color( 0.430115, 0.662139, 0.679688, 1 )
+params/specular = Color( 0, 0, 0, 1 )
+params/emission = Color( 0, 0, 0, 1 )
+params/specular_exp = 40
+params/detail_mix = 1.0
+params/normal_depth = 1
+params/shader = 0
+params/shader_param = 0.5
+params/glow = 0
+params/point_size = 1.0
+uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+textures/diffuse_tc = 0
+textures/detail_tc = 0
+textures/specular_tc = 0
+textures/emission_tc = 0
+textures/specular_exp_tc = 0
+textures/glow_tc = 0
+textures/normal_tc = 0
+textures/shade_param_tc = 0
 
 [node name="world" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="Camera" type="Camera" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.788457, 0.364013, -0.495813, 0, 0.806082, 0.591804, 0.61509, -0.466612, 0.63556, -9.42232, 11.0091, 11.8862 )
+projection = 1
+size = 10.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = false
+visible_layers = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.953257, 0.0972997, -0.286065, 0.111262, 0.767183, 0.631705, 0.280928, -0.634004, 0.720497, 0, 8.69311, 8.4113 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
+
+[node name="player" parent="." instance=ExtResource( 1 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92623, 1.65297 )
+
+[node name="Floor" type="MeshInstance" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 layers = 1
 geometry/visible = true
-geometry/material_override = null
+geometry/material_override = SubResource( 1 )
 geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
@@ -28,17 +145,17 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 1 )
+mesh/mesh = ExtResource( 2 )
 mesh/skeleton = NodePath("..")
 material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+[node name="StaticBody" type="StaticBody" parent="Floor"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -48,10 +165,10 @@ bounce = 0.0
 constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
@@ -73,7 +190,6 @@ v_offset = 0.0
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.852591, 0.211308, -0.477951, 0.188597, 0.728542, 0.658527, 0.487359, -0.651594, 0.581296, 0, 8.69311, 8.4113 )
 layers = 1
 params/enabled = true
 params/editor_only = false
@@ -94,8 +210,26 @@ shadow/max_distance = 0.0
 shadow/split_weight = 0.5
 shadow/zoffset_scale = 2.0
 
-[node name="player" parent="." instance=ExtResource( 2 )]
+[node name="Water" type="MeshInstance" parent="."]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92623, 1.65297 )
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.713458, 0 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 2 )
+mesh/skeleton = NodePath("..")
+material/0 = SubResource( 3 )
 
 
