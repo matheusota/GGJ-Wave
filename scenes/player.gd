@@ -8,17 +8,15 @@ const jump_speed = 5
 const max_accel = 0.02
 const air_accel = 0.1
 
-func _input(ie):
-#	if ie.type == InputEvent.MOUSE_MOTION:
-#		yaw = fmod(yaw - ie.relative_x * view_sensitivity, 360)
-#		pitch = max(min(pitch - ie.relative_y * view_sensitivity, 90), -90)
-#		get_node("yaw").set_rotation(Vector3(0, deg2rad(yaw), 0))
-#		get_node("yaw/camera").set_rotation(Vector3(deg2rad(pitch), 0, 0))
-	pass
+onready var _outside_water = false
+onready var _water_height = get_parent().get_node("Water").get_translation().y
+onready var _jump_height = 0.01
+onready var Wave = preload("res://scenes/wave.tscn")
 
 func _integrate_forces(state):
 	#var aim = get_node("yaw").get_global_transform().basis
 	var aim = get_viewport().get_camera().get_global_transform().basis
+	var aim_yaw = get_node("yaw").get_global_transform().basis
 	aim[2].y = 0
 	aim[2] = aim[2].normalized()
 	aim[0].y = 0
@@ -57,12 +55,14 @@ func _integrate_forces(state):
 			get_node("yaw").set_rotation(Vector3(0, deg2rad(yaw), 0))
 		var speed = walk_speed
 		var diff = floor_velocity + direction * walk_speed - state.get_linear_velocity()
-		var vertdiff = aim[1] * diff.dot(aim[1])
+		var vertdiff = aim_yaw[1] * diff.dot(aim_yaw[1])
 		diff -= vertdiff
 		diff = diff.normalized() * clamp(diff.length(), 0, max_accel / state.get_step())
 		diff += vertdiff
 		get_node("label").set_text(str(diff))
-		apply_impulse(Vector3(), (direction * walk_speed - state.get_linear_velocity()) * get_mass())
+		#apply_impulse(Vector3(), (direction * walk_speed - state.get_linear_velocity()) * get_mass())
+		# ===== BOOOGIE WONDERLAND ======
+		apply_impulse(Vector3(), diff * get_mass())
 		if Input.is_action_pressed("jump"):
 			apply_impulse(Vector3(), normal * jump_speed * get_mass())
 	else:
@@ -70,10 +70,13 @@ func _integrate_forces(state):
 	state.integrate_forces()
 
 func _ready():
-	set_process_input(true)
+	set_fixed_process(true)
 
-func _enter_scene():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _exit_scene():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+func _fixed_process(delta):
+	if get_translation().y > _jump_height:
+		_outside_water = true
+	if get_translation().y < _jump_height and _outside_water:
+		_outside_water = false
+		var new_wave = Wave.instance()
+		get_parent().add_child(new_wave)
+		new_wave.set_translation(Vector3(get_translation().x, _water_height, get_translation().z))

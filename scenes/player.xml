@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="5" version="2.1" version_name="Godot Engine v2.1.stable.official">
-	<ext_resource path="res://icon.png" type="Texture" index="1"></ext_resource>
 	<ext_resource path="res://scenes/player.gd" type="Script" index="0"></ext_resource>
+	<ext_resource path="res://icon.png" type="Texture" index="1"></ext_resource>
 	<resource type="CapsuleShape" path="local://1">
 		<real name="radius"> 0.4 </real>
 		<real name="height"> 0.5 </real>
@@ -159,7 +159,7 @@
 					<string> "3D" </string>
 				</dictionary>
 				<real> 0.3 </real>
-				<transform> 1.4287, 0, 0, 0, 1.4287, 0, 0, 0, 1.4287, 0, 0.3, 0 </transform>
+				<transform> 1, 0, 0, -0, 1, 0, 0, -0, 1, 0, 0.3, 0 </transform>
 				<vector3> 0, -0.3, 0 </vector3>
 				<int> 15 </int>
 				<transform> 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 </transform>
