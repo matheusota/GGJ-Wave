@@ -10,7 +10,10 @@ func set_amplitude(amp):
 func _ready():
 	set_fixed_process(true)
 	set_amplitude(1.0)
+	add_to_group("waves")
 	pass
 
 func _fixed_process(delta):
 	set_scale(get_scale()+Vector3(velocity, 0.0, velocity))
+	if(get_scale().x > 15):
+		queue_free()

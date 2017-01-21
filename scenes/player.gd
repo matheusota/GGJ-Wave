@@ -1,5 +1,6 @@
 extends RigidBody
 
+export(int) var player_number = 0
 export var view_sensitivity = 0.3
 export var yaw = 0
 export var pitch = 0
@@ -9,8 +10,10 @@ const max_accel = 0.02
 const air_accel = 0.1
 
 onready var _outside_water = false
-onready var _water_height = get_parent().get_node("Water").get_translation().y
-onready var _jump_height = 0.01
+onready var _water_height = get_parent().get_parent().get_node("Water").get_translation().y
+onready var _jump_height = 0.1
+onready var _jump_max_height = 0.0
+onready var _reach_jump_max = false
 onready var Wave = preload("res://scenes/wave.tscn")
 
 func _integrate_forces(state):
@@ -22,13 +25,14 @@ func _integrate_forces(state):
 	aim[0].y = 0
 	aim[0] = aim[0].normalized()
 	var direction = Vector3()
-	if Input.is_action_pressed("move_forwards"):
+	
+	if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_number].scancode):
 		direction -= aim[2]
-	if Input.is_action_pressed("move_backwards"):
+	if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_number].scancode):
 		direction += aim[2]
-	if Input.is_action_pressed("move_left"):
+	if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_number].scancode):
 		direction -= aim[0]
-	if Input.is_action_pressed("move_right"):
+	if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_number].scancode):
 		direction += aim[0]
 	direction = direction.normalized()
 	var ray = get_node("ray")
@@ -63,9 +67,14 @@ func _integrate_forces(state):
 		#apply_impulse(Vector3(), (direction * walk_speed - state.get_linear_velocity()) * get_mass())
 		# ===== BOOOGIE WONDERLAND ======
 		apply_impulse(Vector3(), diff * get_mass())
-		if Input.is_action_pressed("jump"):
+		if Input.is_key_pressed(InputMap.get_action_list("jump")[player_number].scancode):
+			_reach_jump_max = false
 			apply_impulse(Vector3(), normal * jump_speed * get_mass())
 	else:
+		if _reach_jump_max == false and get_linear_velocity().y < 0:
+			_reach_jump_max = true
+			_jump_max_height = get_translation().y
+			print(_jump_max_height)
 		apply_impulse(Vector3(), direction * air_accel * get_mass())
 	state.integrate_forces()
 
@@ -79,4 +88,5 @@ func _fixed_process(delta):
 		_outside_water = false
 		var new_wave = Wave.instance()
 		get_parent().add_child(new_wave)
+		new_wave.set_amplitude(_jump_max_height * 1.2)
 		new_wave.set_translation(Vector3(get_translation().x, _water_height, get_translation().z))
