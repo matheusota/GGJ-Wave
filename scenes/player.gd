@@ -1,6 +1,8 @@
 extends RigidBody
 
 export(int) var player_number = 0
+export(int) var player_control = 0
+
 export var view_sensitivity = 0.3
 export var yaw = 0
 export var pitch = 0
@@ -26,13 +28,13 @@ func _integrate_forces(state):
 	aim[0] = aim[0].normalized()
 	var direction = Vector3()
 	
-	if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_number].scancode):
+	if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_control].scancode):
 		direction -= aim[2]
-	if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_number].scancode):
+	if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_control].scancode):
 		direction += aim[2]
-	if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_number].scancode):
+	if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_control].scancode):
 		direction -= aim[0]
-	if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_number].scancode):
+	if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_control].scancode):
 		direction += aim[0]
 	direction = direction.normalized()
 	var ray = get_node("ray")
@@ -67,18 +69,18 @@ func _integrate_forces(state):
 		#apply_impulse(Vector3(), (direction * walk_speed - state.get_linear_velocity()) * get_mass())
 		# ===== BOOOGIE WONDERLAND ======
 		apply_impulse(Vector3(), diff * get_mass())
-		if Input.is_key_pressed(InputMap.get_action_list("jump")[player_number].scancode):
+		if Input.is_key_pressed(InputMap.get_action_list("jump")[player_control].scancode):
 			_reach_jump_max = false
 			apply_impulse(Vector3(), normal * jump_speed * get_mass())
 	else:
 		if _reach_jump_max == false and get_linear_velocity().y < 0:
 			_reach_jump_max = true
 			_jump_max_height = get_translation().y
-			print(_jump_max_height)
 		apply_impulse(Vector3(), direction * air_accel * get_mass())
 	state.integrate_forces()
 
 func _ready():
+	add_to_group("players")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
