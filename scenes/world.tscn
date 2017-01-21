@@ -176,8 +176,8 @@ _update_shape_index = 0
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 0.788457, 0.364013, -0.495813, 0, 0.806082, 0.591804, 0.61509, -0.466612, 0.63556, -9.42232, 11.0091, 11.8862 )
-projection = 0
-fov = 60.0
+projection = 1
+size = 10.0
 near = 0.1
 far = 100.0
 keep_aspect = 1

@@ -4,7 +4,7 @@ export var view_sensitivity = 0.3
 export var yaw = 0
 export var pitch = 0
 const walk_speed = 5
-const jump_speed = 4
+const jump_speed = 5
 const max_accel = 0.02
 const air_accel = 0.1
 
@@ -19,7 +19,6 @@ func _input(ie):
 func _integrate_forces(state):
 	#var aim = get_node("yaw").get_global_transform().basis
 	var aim = get_viewport().get_camera().get_global_transform().basis
-	print(aim)
 	aim[2].y = 0
 	aim[2] = aim[2].normalized()
 	aim[0].y = 0
@@ -63,7 +62,7 @@ func _integrate_forces(state):
 		diff = diff.normalized() * clamp(diff.length(), 0, max_accel / state.get_step())
 		diff += vertdiff
 		get_node("label").set_text(str(diff))
-		apply_impulse(Vector3(), diff * get_mass())
+		apply_impulse(Vector3(), (direction * walk_speed - state.get_linear_velocity()) * get_mass())
 		if Input.is_action_pressed("jump"):
 			apply_impulse(Vector3(), normal * jump_speed * get_mass())
 	else:
