@@ -3,7 +3,7 @@ extends RigidBody
 export(int) var player_number = 0
 export(int) var player_control = 0
 
-export(int) var jump_speed = 20
+export(int) var jump_speed = 10
 onready var _super_jump = false
 onready var _super_jump_speed = 50
 
@@ -13,8 +13,8 @@ export var view_sensitivity = 0.3
 export var yaw = 0
 export var pitch = 0
 const walk_speed = 8
-const max_accel = 0.02
-const air_accel = 0.1
+const max_accel = 1
+const air_accel = 0.5
 
 onready var _outside_water = false
 onready var _water_height = get_parent().get_parent().get_node("Water").get_translation().y
@@ -105,12 +105,20 @@ func _integrate_forces(state):
 				_super_jump = false
 			else:
 				apply_impulse(Vector3(), normal * jump_speed * get_mass())
+				apply_impulse(Vector3(), -Vector3(diff.x, 0, diff.z) * get_mass())
 			get_node("Sprite3D").set_frame(4)
 	else:
 		if _reach_jump_max == false and get_linear_velocity().y < 0:
 			_reach_jump_max = true
 			_jump_max_height = get_translation().y
-		apply_impulse(Vector3(), direction * air_accel * get_mass())
+		
+		var diff = direction * walk_speed - state.get_linear_velocity()
+		var vertdiff = aim_yaw[1] * diff.dot(aim_yaw[1])
+		diff -= vertdiff
+		diff = Vector3(diff.x, 0, diff.z)
+		diff = diff.normalized() * clamp(diff.length(), 0, max_accel / state.get_step())
+		apply_impulse(Vector3(), diff * get_mass())
+		
 	state.integrate_forces()
 
 func _ready():
