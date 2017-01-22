@@ -38,7 +38,7 @@ tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 )
 
 [sub_resource type="SampleLibrary" id=3]
 
-samples/illusion_fisherman_8bit = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+samples/illusion_fisherman_8bit = { "db":-1.84, "pitch":1.0, "sample":ExtResource( 6 ) }
 samples/shine = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
 
 [node name="logo_scene" type="Control"]

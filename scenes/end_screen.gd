@@ -12,6 +12,7 @@ func _ready():
 		if _global._players_scores[i] > _global._players_scores[p]:
 			p = i
 	
+	get_node("backgrounds").get_child(p).show()
 	get_node("Control/Label").set_text("Player " + str(p+1))
 	
 	pass

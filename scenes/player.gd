@@ -159,7 +159,7 @@ func _fixed_process(delta):
 	# Check if died
 	var ref = get_parent().get_parent().get_node("Floor")
 	if ref:
-		if get_translation().distance_to(ref.get_translation()) > 50:
+		if not (get_translation().y - ref.get_translation().y > 0) and get_translation().distance_to(ref.get_translation()) > 25:
 			respawn()
 			
 	# Jump MECHANICS

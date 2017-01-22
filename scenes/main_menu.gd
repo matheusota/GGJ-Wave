@@ -7,7 +7,15 @@ func show_menu():
 
 func _ready():
 	get_node("SimpleTextMenu").connect("option_selected", self, "_option_selected")
+	set_fixed_process(true)
 	pass
+
+func _fixed_process(delta):
+	if Input.is_key_pressed(KEY_G):
+		if get_node("God").is_hidden():
+			get_node("God").show()
+		else:
+			get_node("God").hide()
 
 func enable():
 	get_node("SimpleTextMenu").set_menu(true)
