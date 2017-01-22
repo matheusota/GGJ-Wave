@@ -54,20 +54,23 @@ func _integrate_forces(state):
 	
 	_sprite_stop = true
 	if _sleep == false:
-		if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_control].scancode):
+		#if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_control].scancode):
+		if Input.is_action_pressed("move_forwards" + str(player_control)):
 			direction -= aim[2]
-			_sprite_state = 0
 			_sprite_stop = false
-		if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_control].scancode):
+		#if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_control].scancode):
+		if Input.is_action_pressed("move_backwards" + str(player_control)):
 			direction += aim[2]
 			_sprite_state = 2
 			_sprite_stop = false
-		if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_control].scancode):
+		#if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_control].scancode):
+		if Input.is_action_pressed("move_left" + str(player_control)):
 			direction -= aim[0]
 			_sprite_state = 3
 			_sprite_stop = false
 			get_node("Sprite3D").set_flip_h(false)
-		if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_control].scancode):
+		#if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_control].scancode):
+		if Input.is_action_pressed("move_right" + str(player_control)):
 			direction += aim[0]
 			_sprite_state = 1
 			_sprite_stop = false
@@ -108,7 +111,8 @@ func _integrate_forces(state):
 		#apply_impulse(Vector3(), (direction * walk_speed - state.get_linear_velocity()) * get_mass())
 		# ===== BOOOGIE WONDERLAND ======
 		apply_impulse(Vector3(), diff * get_mass())
-		if Input.is_key_pressed(InputMap.get_action_list("jump")[player_control].scancode):
+		#if Input.is_key_pressed(InputMap.get_action_list("jump")[player_control].scancode):
+		if Input.is_action_pressed("jump" + str(player_control)):
 			_reach_jump_max = false
 			get_node("SamplePlayer").play("jump")
 			

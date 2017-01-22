@@ -30,7 +30,7 @@ func start():
 
 func _ready():
 	set_fixed_process(true)
-	_global._player_config = [[true,0],[true,1],[false,0],[false,0]]
+	_global._player_config = [[true,2],[true,1],[true,0],[true,3]]
 	start()
 	pass
 
