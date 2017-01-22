@@ -150,8 +150,11 @@ func _ready():
 	
 func _fixed_process(delta):
 	# Check if died
-	if get_translation().y < -5:
-		respawn()
+	var ref = get_parent().get_parent().get_node("Floor")
+	if ref:
+		if get_translation().distance_to(ref.get_translation()) > 50:
+			respawn()
+			
 	# Jump MECHANICS
 	if get_translation().y > _jump_height:
 		_outside_water = true
