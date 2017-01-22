@@ -22,16 +22,19 @@ func start():
 	
 	# Hud
 	get_node("hud").reset()
-	
-	# Music!
-	get_node("Player_OST").play("game_ost")
-	
 	pass
 
-func _ready():
+func start_match():
+	get_tree().call_group(0, "players", "wake")
 	set_fixed_process(true)
-	_global._player_config = [[true,0],[true,1],[false,0],[false,0]]
+	get_node("Player_OST").play("game_ost")
+
+func _ready():
+#	set_fixed_process(true)
+#	_global._player_config = [[true,0],[true,1],[false,0],[false,0]]
 	start()
+	get_tree().call_group(0, "players", "sleep")
+	get_node("hud").connect("start", self, "start_match")
 	pass
 
 func _fixed_process(delta):
