@@ -26,9 +26,11 @@ func _ready():
 
 func _score_updated(player):
 	get_node("players").get_child(player).get_node("ScoreLabel").set_text("x " + str(_global._players_scores[player]))
+	get_node("players").get_child(player).coin_up()
 
 func _player_died(player):
 	get_node("players").get_child(player).get_node("ScoreLabel").set_text("x " + str(_global._players_scores[player]))
+	get_node("players").get_child(player).lost_coins()
 
 func _fixed_process(delta):
 	var c_time = ceil(float(_global._match_timer))
