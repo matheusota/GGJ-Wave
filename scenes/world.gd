@@ -7,17 +7,21 @@ onready var _global = get_node("/root/global")
 func start():
 	# Configure players
 	var conf = _global._player_config
-	for i in range(conf):
+	for i in range(conf.size()):
 		if conf[i][0] == false:
 			get_node("Players").get_child(i).queue_free()
 		else:
 			get_node("Players").get_child(i).player_control = conf[i][1]
 	
+	# Hud
+	get_node("hud").reset()
 	
 	pass
 
 func _ready():
 	set_fixed_process(true)
+	_global._player_config = [[true,0],[true,1],[false,0],[false,0]]
+	start()
 	pass
 
 func _fixed_process(delta):

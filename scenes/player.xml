@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="5" version="2.1" version_name="Godot Engine v2.1.stable.official">
 	<ext_resource path="res://scenes/player.gd" type="Script" index="0"></ext_resource>
-	<ext_resource path="res://assets/fish.png" type="Texture" index="1"></ext_resource>
+	<ext_resource path="res://assets/sprite_player1.tex" type="Texture" index="1"></ext_resource>
 	<resource type="CapsuleShape" path="local://1">
 		<real name="radius"> 0.4 </real>
 		<real name="height"> 0.5 </real>
 
 	</resource>
 	<resource type="RayShape" path="local://2">
-		<real name="length"> 0.3 </real>
+		<real name="length"> 0.293299 </real>
 
 	</resource>
 	<main_resource>
@@ -21,7 +21,7 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "names" </string>
-			<string_array  len="107">
+			<string_array  len="96">
 				<string> "player" </string>
 				<string> "_import_transform" </string>
 				<string> "input/ray_pickable" </string>
@@ -54,6 +54,8 @@
 				<string> "script/script" </string>
 				<string> "__meta__" </string>
 				<string> "player_number" </string>
+				<string> "player_control" </string>
+				<string> "jump_speed" </string>
 				<string> "view_sensitivity" </string>
 				<string> "yaw" </string>
 				<string> "pitch" </string>
@@ -84,19 +86,6 @@
 				<string> "h_offset" </string>
 				<string> "v_offset" </string>
 				<string> "Camera" </string>
-				<string> "label" </string>
-				<string> "focus/ignore_mouse" </string>
-				<string> "focus/stop_mouse" </string>
-				<string> "size_flags/horizontal" </string>
-				<string> "size_flags/vertical" </string>
-				<string> "margin/left" </string>
-				<string> "margin/top" </string>
-				<string> "margin/right" </string>
-				<string> "margin/bottom" </string>
-				<string> "percent_visible" </string>
-				<string> "lines_skipped" </string>
-				<string> "max_lines_visible" </string>
-				<string> "Label" </string>
 				<string> "Sprite3D" </string>
 				<string> "layers" </string>
 				<string> "geometry/visible" </string>
@@ -131,14 +120,14 @@
 				<string> "region_rect" </string>
 			</string_array>
 			<string> "node_count" </string>
-			<int> 8 </int>
+			<int> 7 </int>
 			<string> "node_paths" </string>
 			<array  len="0" shared="false">
 			</array>
 			<string> "nodes" </string>
-			<int_array  len="270"> 				-1, -1, 35, 0, -1, 34, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 7, 2, 8, 6, 9, 7, 10, 2, 11, 8, 12, 8, 13, 3, 14, 9, 15, 10, 16, 10, 17, 9, 18, 1, 19, 2, 20, 11, 21, 1, 22, 2, 23, 2, 24, 12, 25, 13, 26, 13, 27, 14, 28, 14, 29, 15, 30, 16, 31, 12, 32, 17, 33, 12, 34, 12, 0, 0, 0, 41, 36, -1, 5, 1, 0, 37, 5, 38, 4, 39, 2, 40, 12, 0, 0, 0, 41, 42, -1, 5, 1, 0, 37, 7, 38, 6, 39, 2, 40, 8, 0, 0, 0, 48, 43, -1, 6, 1, 0, 37, 18, 44, 1, 45, 19, 46, 8, 47, 20, 0, 0, 0, 49, 33, -1, 1, 1, 0, 0, 4, 0, 61, 50, -1, 12, 1, 0, 37, 21, 51, 12, 52, 22, 53, 23, 54, 24, 55, 8, 56, 2, 57, 25, 58, 26, 59, 10, 60, 10, 0, 0, 0, 74, 62, -1, 11, 63, 1, 64, 1, 65, 3, 66, 12, 67, 10, 68, 10, 69, 27, 70, 28, 71, 9, 72, 12, 73, 25, 0, 0, 0, 75, 75, -1, 33, 1, 0, 37, 29, 76, 8, 77, 1, 78, 26, 79, 8, 80, 1, 81, 10, 82, 10, 83, 10, 84, 1, 85, 2, 86, 2, 87, 2, 88, 2, 89, 12, 90, 1, 91, 30, 92, 2, 93, 2, 94, 31, 95, 9, 96, 32, 97, 3, 98, 1, 99, 2, 100, 3, 101, 33, 102, 8, 103, 8, 104, 12, 105, 2, 106, 34, 0 </int_array>
+			<int_array  len="245"> 				-1, -1, 37, 0, -1, 36, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 7, 2, 8, 6, 9, 7, 10, 2, 11, 8, 12, 8, 13, 3, 14, 9, 15, 10, 16, 10, 17, 11, 18, 1, 19, 2, 20, 12, 21, 1, 22, 2, 23, 2, 24, 13, 25, 14, 26, 14, 27, 15, 28, 15, 29, 16, 30, 17, 31, 13, 32, 13, 33, 18, 34, 19, 35, 13, 36, 13, 0, 0, 0, 43, 38, -1, 5, 1, 0, 39, 5, 40, 4, 41, 2, 42, 13, 0, 0, 0, 43, 44, -1, 5, 1, 0, 39, 7, 40, 6, 41, 2, 42, 8, 0, 0, 0, 50, 45, -1, 6, 1, 0, 39, 20, 46, 1, 47, 21, 48, 8, 49, 22, 0, 0, 0, 51, 35, -1, 1, 1, 0, 0, 4, 0, 63, 52, -1, 12, 1, 0, 39, 23, 53, 13, 54, 24, 55, 25, 56, 26, 57, 8, 58, 2, 59, 27, 60, 28, 61, 10, 62, 10, 0, 0, 0, 64, 64, -1, 33, 1, 0, 39, 29, 65, 8, 66, 1, 67, 28, 68, 8, 69, 1, 70, 10, 71, 10, 72, 10, 73, 1, 74, 2, 75, 2, 76, 2, 77, 2, 78, 13, 79, 1, 80, 30, 81, 2, 82, 2, 83, 31, 84, 9, 85, 32, 86, 3, 87, 1, 88, 2, 89, 3, 90, 33, 91, 34, 92, 8, 93, 13, 94, 2, 95, 35, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="35" shared="false">
+			<array  len="36" shared="false">
 				<transform> 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 </transform>
 				<bool> True </bool>
 				<bool> False </bool>
@@ -150,6 +139,7 @@
 				<int> 1 </int>
 				<real> 1 </real>
 				<real> 0 </real>
+				<real> 4 </real>
 				<int> 8 </int>
 				<int> 0 </int>
 				<vector3> 0, 0, 0 </vector3>
@@ -159,8 +149,9 @@
 					<string> "__editor_plugin_screen__" </string>
 					<string> "3D" </string>
 				</dictionary>
+				<int> 100 </int>
 				<real> 0.3 </real>
-				<transform> 1, 0, 0, -0, 1, 0, 0, -0, 1, 0, 0.3, 0 </transform>
+				<transform> 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 </transform>
 				<vector3> 0, -0.3, 0 </vector3>
 				<int> 15 </int>
 				<transform> 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 </transform>
@@ -168,14 +159,13 @@
 				<real> 0.1 </real>
 				<real> 100 </real>
 				<int> -1 </int>
-				<resource name=""></resource>				<real> 40 </real>
-				<real> 13 </real>
-				<transform> 1, 0, 0, -0, 2, 0, 0, -0, 1, 0, 0.845861, 0 </transform>
+				<resource name=""></resource>				<transform> 1.85565, 0, 0, 0, 1.85565, 0, 0, 0, 1.85565, 0.0615482, 0.845861, 0 </transform>
 				<vector2> 0, 0 </vector2>
 				<color> 1, 1, 1, 1 </color>
-				<real> 0.01 </real>
+				<real> 0.004 </real>
 				<resource  external="1">  </resource>
-				<rect2> 0, 0, 0, 0 </rect2>
+				<int> 5 </int>
+				<rect2> 0, 0, 50, 32 </rect2>
 			</array>
 			<string> "version" </string>
 			<int> 2 </int>

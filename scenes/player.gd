@@ -3,11 +3,16 @@ extends RigidBody
 export(int) var player_number = 0
 export(int) var player_control = 0
 
+export(int) var jump_speed = 20
+onready var _super_jump = false
+onready var _super_jump_speed = 50
+
+onready var _initial_pos = get_translation()
+
 export var view_sensitivity = 0.3
 export var yaw = 0
 export var pitch = 0
-const walk_speed = 5
-const jump_speed = 5
+const walk_speed = 8
 const max_accel = 0.02
 const air_accel = 0.1
 
@@ -17,6 +22,16 @@ onready var _jump_height = 0.1
 onready var _jump_max_height = 0.0
 onready var _reach_jump_max = false
 onready var Wave = preload("res://scenes/wave.tscn")
+
+onready var _sprite_timer = 0.0
+onready var _sprite_timer_limit = 0.05
+onready var _sprite_state = 0 # 0 - up, 1 - right, 2 - down, 3 - left
+onready var _sprite_stop = false
+
+func respawn():
+	set_translation(_initial_pos)
+	_jump_max_height = 0.0
+	get_node("/root/global").player_died(player_number)
 
 func _integrate_forces(state):
 	#var aim = get_node("yaw").get_global_transform().basis
@@ -28,22 +43,37 @@ func _integrate_forces(state):
 	aim[0] = aim[0].normalized()
 	var direction = Vector3()
 	
+	_sprite_stop = true
 	if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_control].scancode):
 		direction -= aim[2]
+		_sprite_state = 0
+		_sprite_stop = false
 	if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_control].scancode):
 		direction += aim[2]
+		_sprite_state = 2
+		_sprite_stop = false
 	if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_control].scancode):
 		direction -= aim[0]
+		_sprite_state = 3
+		_sprite_stop = false
+		get_node("Sprite3D").set_flip_h(false)
 	if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_control].scancode):
 		direction += aim[0]
+		_sprite_state = 1
+		_sprite_stop = false
+		get_node("Sprite3D").set_flip_h(true)
 	direction = direction.normalized()
 	var ray = get_node("ray")
 	if ray.is_colliding():
+		if get_node("Sprite3D").get_frame() == 4:
+			get_node("Sprite3D").set_frame(0)
+		_jump_max_height = get_translation().y
 		var up = state.get_total_gravity().normalized()
 		var normal = ray.get_collision_normal()
 		var floor_velocity = Vector3()
 		var object = ray.get_collider()
-		if object extends RigidBody or object extends StaticBody:
+		var wr = weakref(object)
+		if object and object extends RigidBody or object extends StaticBody:
 			var point = ray.get_collision_point() - object.get_translation()
 			var floor_angular_vel = Vector3()
 			if object extends RigidBody:
@@ -65,13 +95,17 @@ func _integrate_forces(state):
 		diff -= vertdiff
 		diff = diff.normalized() * clamp(diff.length(), 0, max_accel / state.get_step())
 		diff += vertdiff
-		get_node("label").set_text(str(diff))
 		#apply_impulse(Vector3(), (direction * walk_speed - state.get_linear_velocity()) * get_mass())
 		# ===== BOOOGIE WONDERLAND ======
 		apply_impulse(Vector3(), diff * get_mass())
 		if Input.is_key_pressed(InputMap.get_action_list("jump")[player_control].scancode):
 			_reach_jump_max = false
-			apply_impulse(Vector3(), normal * jump_speed * get_mass())
+			if(_super_jump):
+				apply_impulse(Vector3(), normal * _super_jump_speed * get_mass())
+				_super_jump = false
+			else:
+				apply_impulse(Vector3(), normal * jump_speed * get_mass())
+			get_node("Sprite3D").set_frame(4)
 	else:
 		if _reach_jump_max == false and get_linear_velocity().y < 0:
 			_reach_jump_max = true
@@ -82,13 +116,29 @@ func _integrate_forces(state):
 func _ready():
 	add_to_group("players")
 	set_fixed_process(true)
-
+	if player_number == 1:
+		get_node("Sprite3D").set_texture(preload("res://assets/sprite_player2.tex"))
+	if player_number == 2:
+		get_node("Sprite3D").set_texture(preload("res://assets/sprite_player3.tex"))
+	if player_number == 3:
+		get_node("Sprite3D").set_texture(preload("res://assets/sprite_player4.tex"))
+	
 func _fixed_process(delta):
+	# Check if died
+	if get_translation().y < -5:
+		respawn()
+	# Jump MECHANICS
 	if get_translation().y > _jump_height:
 		_outside_water = true
 	if get_translation().y < _jump_height and _outside_water:
 		_outside_water = false
 		var new_wave = Wave.instance()
 		get_parent().add_child(new_wave)
-		new_wave.set_amplitude(_jump_max_height * 1.2)
+		new_wave.set_amplitude(_jump_max_height * 2.0)
 		new_wave.set_translation(Vector3(get_translation().x, _water_height, get_translation().z))
+	# Sprite
+	if(_sprite_stop == false) and get_node("Sprite3D").get_frame() != 4:
+		_sprite_timer += delta
+		if _sprite_timer > _sprite_timer_limit:
+			_sprite_timer -= _sprite_timer_limit
+			get_node("Sprite3D").set_frame((get_node("Sprite3D").get_frame()+1)%4)

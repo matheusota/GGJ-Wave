@@ -30,6 +30,7 @@ monitorable = true
 collision/layers = 1
 collision/mask = 1
 script/script = ExtResource( 1 )
+respawnable = false
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 
