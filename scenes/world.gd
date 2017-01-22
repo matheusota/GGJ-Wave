@@ -20,6 +20,9 @@ func start():
 		else:
 			get_node("Players").get_child(i).player_control = conf[i][1]
 	
+	# Reset score
+	_global._players_scores = [0, 0, 0, 0]
+	
 	# Hud
 	get_node("hud").reset()
 	pass
