@@ -332,7 +332,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9155, 6.11021, -11.13
 
 [node name="Player_OST" type="SamplePlayer" parent="."]
 
-config/polyphony = 1
+config/polyphony = 2
 config/samples = ExtResource( 8 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0

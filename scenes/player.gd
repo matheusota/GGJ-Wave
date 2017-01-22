@@ -35,6 +35,9 @@ onready var _sleep = false
 func sleep():
 	_sleep = true
 
+func wake():
+	_sleep = false
+
 func respawn():
 	set_translation(_initial_pos)
 	_jump_max_height = 0.0
@@ -112,7 +115,7 @@ func _integrate_forces(state):
 		# ===== BOOOGIE WONDERLAND ======
 		apply_impulse(Vector3(), diff * get_mass())
 		#if Input.is_key_pressed(InputMap.get_action_list("jump")[player_control].scancode):
-		if Input.is_action_pressed("jump" + str(player_control)):
+		if Input.is_action_pressed("jump" + str(player_control)) and _sleep == false:
 			_reach_jump_max = false
 			get_node("SamplePlayer").play("jump")
 			

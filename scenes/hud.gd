@@ -8,6 +8,9 @@ func reset():
 		if _global._player_config[i][0] == false:
 			get_node("players").get_child(i).hide()
 
+func go():
+	emit_signal("start")
+
 func play_timeout():
 	get_node("AnimationPlayer").play("timeout")
 
@@ -22,13 +25,17 @@ func _ready():
 	set_fixed_process(true)
 	_global.connect("score_update", self, "_score_updated")
 	_global.connect("player_died", self, "_player_died")
+	get_node("AnimationPlayer").play("counter")
+	add_user_signal("start")
 	pass
 
 func _score_updated(player):
 	get_node("players").get_child(player).get_node("ScoreLabel").set_text("x " + str(_global._players_scores[player]))
+	get_node("players").get_child(player).coin_up()
 
 func _player_died(player):
 	get_node("players").get_child(player).get_node("ScoreLabel").set_text("x " + str(_global._players_scores[player]))
+	get_node("players").get_child(player).lost_coins()
 
 func _fixed_process(delta):
 	var c_time = ceil(float(_global._match_timer))

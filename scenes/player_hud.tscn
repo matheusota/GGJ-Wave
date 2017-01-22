@@ -1,11 +1,35 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://assets/player_hud.fnt" type="BitmapFont" id=1]
-[ext_resource path="res://assets/coins.png" type="Texture" id=2]
+[ext_resource path="res://scenes/player_hud.gd" type="Script" id=1]
+[ext_resource path="res://assets/player_hud.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://assets/coins.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "coin_up"
+length = 0.2
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerLabel:rect/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ Vector2( 0, 0 ), Vector2( 0, -11 ), Vector2( 0, 0 ) ] }
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "lost_coins"
+length = 0.2
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:config/emitting")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.1 ), "transitions":FloatArray( 1, 1 ), "update":1, "values":[ true, false ] }
 
 [node name="player1" type="Control"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -14,6 +38,7 @@ margin/left = 30.0
 margin/top = 10.0
 margin/right = 70.0
 margin/bottom = 50.0
+script/script = ExtResource( 1 )
 
 [node name="PlayerLabel" type="Label" parent="."]
 
@@ -23,9 +48,9 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 14.0
-custom_fonts/font = ExtResource( 1 )
+margin/right = 131.0
+margin/bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.507812, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "PLAYER 1"
@@ -43,7 +68,7 @@ margin/left = 56.0
 margin/top = 25.0
 margin/right = 110.0
 margin/bottom = 49.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.507812, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "x 0"
@@ -55,7 +80,47 @@ max_lines_visible = -1
 
 transform/pos = Vector2( 33.5987, 38.9468 )
 transform/scale = Vector2( 0.629937, 0.629937 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/coin_up = SubResource( 1 )
+anims/lost_coins = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+transform/pos = Vector2( 33.6683, 37.5697 )
+transform/scale = Vector2( 0.619582, 0.619582 )
+config/amount = 5
+config/lifetime = 3.0
+config/time_scale = 6.0
+config/emitting = false
+config/explosiveness = 0.22
+config/texture = ExtResource( 3 )
+config/v_frames = 4
+params/direction = 0.0
+params/spread = 179.92
+params/linear_velocity = 20.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
 
 

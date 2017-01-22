@@ -9,7 +9,14 @@ func _ready():
 	get_node("SimpleTextMenu").connect("option_selected", self, "_option_selected")
 	pass
 
+func enable():
+	get_node("SimpleTextMenu").set_menu(true)
+
 func _option_selected(o):
-	get_node("SamplePlayer").play("splash")
 	if o == 0:
-		get_node("/root/global").change_scene(self, "res://scenes/world.tscn")
+		get_node("control_menu").enable()
+	elif o == 1:
+		get_node("credits").enable()
+	elif o == 2:
+		get_tree().quit()
+	get_node("SimpleTextMenu").set_menu(false)

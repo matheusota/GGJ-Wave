@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://scenes/main_menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/splash_screen.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://addons/GodotSTM/GodotSTM_icon.png" type="Texture" id=5]
 [ext_resource path="res://assets/timer.fnt" type="BitmapFont" id=6]
 [ext_resource path="res://assets/sample_lib.tres" type="SampleLibrary" id=7]
+[ext_resource path="res://scenes/credits.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/control_menu.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -118,5 +120,13 @@ default/filter/gain = 1.0
 default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
+
+[node name="credits" parent="." instance=ExtResource( 8 )]
+
+visibility/visible = false
+
+[node name="control_menu" parent="." instance=ExtResource( 9 )]
+
+visibility/visible = false
 
 
