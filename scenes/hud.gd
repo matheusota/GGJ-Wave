@@ -8,6 +8,16 @@ func reset():
 		if _global._player_config[i][0] == false:
 			get_node("players").get_child(i).hide()
 
+func play_timeout():
+	get_node("AnimationPlayer").play("timeout")
+
+func room_close():
+	get_node("timeout").hide()
+	get_node("AnimationPlayer").play("room_close")
+
+func finished_animation():
+	_global.change_scene(get_parent(), "res://scenes/end_screen.tscn")
+
 func _ready():
 	set_fixed_process(true)
 	_global.connect("score_update", self, "_score_updated")

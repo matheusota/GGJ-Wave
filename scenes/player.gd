@@ -6,6 +6,8 @@ export(int) var player_control = 0
 export(int) var jump_speed = 10
 onready var _super_jump = false
 onready var _super_jump_speed = 1000
+onready var SuperJumpParticles = preload("res://scenes/super_jump_particles.tscn")
+onready var FallParticles = preload("res://scenes/fall_particles.tscn")
 
 onready var _initial_pos = get_translation()
 
@@ -28,10 +30,17 @@ onready var _sprite_timer_limit = 0.05
 onready var _sprite_state = 0 # 0 - up, 1 - right, 2 - down, 3 - left
 onready var _sprite_stop = false
 
+onready var _sleep = false
+
+func sleep():
+	_sleep = true
+
 func respawn():
 	set_translation(_initial_pos)
 	_jump_max_height = 0.0
-	get_node("/root/global").player_died(player_number)
+	if _sleep == false:
+		get_node("/root/global").player_died(player_number)
+		get_node("SamplePlayer").play("lost_coins")
 
 func _integrate_forces(state):
 	#var aim = get_node("yaw").get_global_transform().basis
@@ -44,24 +53,25 @@ func _integrate_forces(state):
 	var direction = Vector3()
 	
 	_sprite_stop = true
-	if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_control].scancode):
-		direction -= aim[2]
-		_sprite_state = 0
-		_sprite_stop = false
-	if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_control].scancode):
-		direction += aim[2]
-		_sprite_state = 2
-		_sprite_stop = false
-	if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_control].scancode):
-		direction -= aim[0]
-		_sprite_state = 3
-		_sprite_stop = false
-		get_node("Sprite3D").set_flip_h(false)
-	if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_control].scancode):
-		direction += aim[0]
-		_sprite_state = 1
-		_sprite_stop = false
-		get_node("Sprite3D").set_flip_h(true)
+	if _sleep == false:
+		if Input.is_key_pressed(InputMap.get_action_list("move_forwards")[player_control].scancode):
+			direction -= aim[2]
+			_sprite_state = 0
+			_sprite_stop = false
+		if Input.is_key_pressed(InputMap.get_action_list("move_backwards")[player_control].scancode):
+			direction += aim[2]
+			_sprite_state = 2
+			_sprite_stop = false
+		if Input.is_key_pressed(InputMap.get_action_list("move_left")[player_control].scancode):
+			direction -= aim[0]
+			_sprite_state = 3
+			_sprite_stop = false
+			get_node("Sprite3D").set_flip_h(false)
+		if Input.is_key_pressed(InputMap.get_action_list("move_right")[player_control].scancode):
+			direction += aim[0]
+			_sprite_state = 1
+			_sprite_stop = false
+			get_node("Sprite3D").set_flip_h(true)
 	direction = direction.normalized()
 	var ray = get_node("ray")
 	if ray.is_colliding():
@@ -101,7 +111,11 @@ func _integrate_forces(state):
 		if Input.is_key_pressed(InputMap.get_action_list("jump")[player_control].scancode):
 			_reach_jump_max = false
 			get_node("SamplePlayer").play("jump")
+			
 			if(_super_jump):
+				var particles = SuperJumpParticles.instance()
+				get_parent().add_child(particles)
+				particles.set_translation(get_translation())
 				apply_impulse(Vector3(), normal * _super_jump_speed * get_mass())
 #				apply_impulse(Vector3(), -Vector3(diff.x, 0, diff.z) * get_mass())
 				_super_jump = false
@@ -145,8 +159,11 @@ func _fixed_process(delta):
 		_outside_water = false
 		var new_wave = Wave.instance()
 		get_parent().add_child(new_wave)
-		new_wave.set_amplitude(_jump_max_height * 2.0)
+		new_wave.set_amplitude(_jump_max_height * 4.0)
 		new_wave.set_translation(Vector3(get_translation().x, _water_height, get_translation().z))
+#		var fall_particles = FallParticles.instance()
+#		get_parent().add_child(fall_particles)
+#		fall_particles.set_translation(get_translation())
 		get_node("SamplePlayer").play("splash")
 	
 	# Sprite

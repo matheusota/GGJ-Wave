@@ -22,7 +22,7 @@ func _ready():
 	pass
 
 func _body_enter(body):
-	if is_hidden():
+	if is_hidden() or get_node("/root/global")._match_timer < 0:
 		return
 	if body.is_in_group("players"):
 		if respawnable:

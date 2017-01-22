@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://assets/player_hud.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://assets/coins.png" type="Texture" id=2]
+
+[node name="player1" type="Control"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 30.0
+margin/top = 10.0
+margin/right = 70.0
+margin/bottom = 50.0
+
+[node name="PlayerLabel" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0.507812, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "PLAYER 1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ScoreLabel" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 56.0
+margin/top = 25.0
+margin/right = 110.0
+margin/bottom = 49.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0.507812, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "x 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 33.5987, 38.9468 )
+transform/scale = Vector2( 0.629937, 0.629937 )
+texture = ExtResource( 2 )
+vframes = 4
+
+

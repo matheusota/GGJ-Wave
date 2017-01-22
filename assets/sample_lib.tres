@@ -1,4 +1,4 @@
-[gd_resource type="SampleLibrary" load_steps=9 format=1]
+[gd_resource type="SampleLibrary" load_steps=10 format=1]
 
 [ext_resource path="res://assets/wavs/coin.wav" type="Sample" id=1]
 [ext_resource path="res://assets/wavs/game_ost.wav" type="Sample" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/wavs/menu_ost.wav" type="Sample" id=6]
 [ext_resource path="res://assets/wavs/shine.wav" type="Sample" id=7]
 [ext_resource path="res://assets/wavs/splash.wav" type="Sample" id=8]
+[ext_resource path="res://assets/wavs/whistle.wav" type="Sample" id=9]
 
 [resource]
 
@@ -19,4 +20,5 @@ samples/lost_coins = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
 samples/menu_ost = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
 samples/shine = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
 samples/splash = { "db":0.0, "pitch":1.0, "sample":ExtResource( 8 ) }
+samples/whistle = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
 

@@ -12,4 +12,4 @@ func _ready():
 func _option_selected(o):
 	get_node("SamplePlayer").play("splash")
 	if o == 0:
-		print("start")
+		get_node("/root/global").change_scene(self, "res://scenes/world.tscn")
