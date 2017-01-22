@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scenes/world.gd" type="Script" id=1]
 [ext_resource path="res://scenes/hud.tscn" type="PackedScene" id=2]
@@ -6,10 +6,10 @@
 [ext_resource path="res://assets/water_texture.png" type="Texture" id=4]
 [ext_resource path="res://scenes/player.xml" type="PackedScene" id=5]
 [ext_resource path="res://scenes/coin.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/powerup.tscn" type="PackedScene" id=7]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=2]
 
-resource/name = "elevator"
 length = 3.0
 loop = true
 step = 0.1
@@ -43,6 +43,7 @@ v_offset = 0.0
 
 [node name="Floor" parent="." instance=ExtResource( 3 )]
 
+editor/display_folded = true
 transform/local = Transform( 11, 0, 0, 0, 6, 0, 0, 0, 11, 11.1516, -6.07025, -11.0263 )
 
 [node name="Water" type="Sprite3D" parent="."]
@@ -68,7 +69,7 @@ offset = Vector2( 0, 0 )
 flip_h = false
 flip_v = false
 modulate = Color( 1, 1, 1, 1 )
-opacity = 0.5
+opacity = 0.9
 pixel_size = 0.025
 axis = 2
 flags/transparent = true
@@ -84,7 +85,7 @@ region_rect = Rect2( 0, 0, 1200, 1200 )
 [node name="SpotLight" type="SpotLight" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 10.9995, 37.9957, -11.0282 )
+transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 10.9995, 51.3884, -11.0282 )
 layers = 1
 params/enabled = true
 params/editor_only = false
@@ -100,7 +101,7 @@ shadow/esm_multiplier = 60.0
 shadow/blur_passes = 1.0
 projector = null
 operator = 0
-params/radius = 50.0
+params/radius = 60.0
 params/attenuation = 1.0
 params/spot_angle = 30.0
 params/spot_attenuation = 1.0
@@ -131,33 +132,34 @@ shadow/zoffset_scale = 2.0
 
 [node name="Players" type="Spatial" parent="."]
 
+editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9995, 0, -11.0282 )
 
 [node name="player1" parent="Players" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69364, 0.01, -3.6088 )
-jump_speed = 15
+jump_speed = 18
 
 [node name="player2" parent="Players" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.63068, 0.01, 3.58472 )
 player_number = 1
 player_control = 1
-jump_speed = 20
+jump_speed = 18
 
 [node name="player3" parent="Players" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.48614, 0.01, 3.61489 )
 player_number = 2
 player_control = 1
-jump_speed = 20
+jump_speed = 18
 
 [node name="player4" parent="Players" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72977, 0.01, -3.6088 )
 player_number = 3
-jump_speed = 20
+jump_speed = 18
 
 [node name="platforms" type="Spatial" parent="."]
 
@@ -167,7 +169,6 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9995, 0, -11.0282 )
 
 [node name="arc" type="Spatial" parent="platforms"]
 
-editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Platform" parent="platforms/arc" instance=ExtResource( 3 )]
@@ -188,7 +189,7 @@ transform/local = Transform( -1.99997, -1.50993e-07, -0.00835616, -3.00309e-07, 
 
 [node name="Platform2" parent="platforms/arc" instance=ExtResource( 3 )]
 
-transform/local = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 1.5, -0.471842, 3.7135, -8.74695 )
+transform/local = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 1.5, 0.0386343, 3.7135, -8.74695 )
 
 [node name="elevator" parent="platforms" instance=ExtResource( 3 )]
 
@@ -200,15 +201,11 @@ transform/local = Transform( 2, 0, 0, 0, 0.1, 0, 0, 0, 2, 8.32969, 1.85901, 8.72
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/elevator = SubResource( 1 )
+anims/elevator = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "elevator"
-
-[node name="jumper" parent="platforms" instance=ExtResource( 3 )]
-
-transform/local = Transform( -0.0125666, 0.0116324, -1.39979, 0.340425, 0.940248, 0.00932448, 0.940188, -0.340291, -0.0220859, -0.390553, -0.791931, 0.327435 )
 
 [node name="Platform" parent="platforms" instance=ExtResource( 3 )]
 
@@ -216,11 +213,121 @@ transform/local = Transform( 1.2, 0, 0, 0, 0.5, 0, 0, 0, 1.2, 8.14698, 4.86966, 
 
 [node name="coins" type="Spatial" parent="."]
 
+editor/display_folded = true
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Coin" parent="coins" instance=ExtResource( 6 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.57755, 3.0999, -12.065 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.57755, 1.30197, -19.4312 )
 respawnable = true
+
+[node name="Coin1" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8257, 1.30197, -19.4312 )
+respawnable = true
+
+[node name="Coin2" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1305, 1.30197, -19.4312 )
+respawnable = true
+
+[node name="Coin3" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1653, 8.21561, -19.4312 )
+respawnable = true
+
+[node name="Coin4" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8906, 8.21561, -19.4312 )
+respawnable = true
+
+[node name="Coin5" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7625, 3.88152, -20.1374 )
+respawnable = true
+
+[node name="Coin6" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.1317, 3.88152, -20.1374 )
+respawnable = true
+
+[node name="Coin7" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7798, 2.9636, -20.1374 )
+respawnable = true
+
+[node name="Coin8" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.2385, 2.9636, -20.1374 )
+respawnable = true
+
+[node name="Coin9" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04479, 2.9636, -20.1374 )
+respawnable = true
+
+[node name="Coin10" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.51704, 2.9636, -20.1374 )
+respawnable = true
+
+[node name="Coin11" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.85769, 3.78277, -20.1374 )
+respawnable = true
+
+[node name="Coin12" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.37153, 3.78277, -20.1374 )
+respawnable = true
+
+[node name="Coin13" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08341, 3.78277, -12.4403 )
+respawnable = true
+
+[node name="Coin16" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( -0.0275288, 0, -0.999621, 0, 1, 0, 0.999621, 0, -0.0275288, 11.7991, 3.78277, -1.19483 )
+respawnable = true
+
+[node name="Coin14" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08341, 3.78277, -10.7901 )
+respawnable = true
+
+[node name="Coin16 2" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( -0.0275288, 0, -0.999621, 0, 1, 0, 0.999621, 0, -0.0275288, 10.1495, 3.78277, -1.24025 )
+respawnable = true
+
+[node name="Coin15" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08341, 3.78277, -9.0421 )
+respawnable = true
+
+[node name="Coin17" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.4797, 8.80997, -10.9835 )
+respawnable = true
+
+[node name="Coin18" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.2678, 8.80997, -10.54 )
+respawnable = true
+
+[node name="Coin19" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.2678, 8.80997, -11.4239 )
+respawnable = true
+
+[node name="Coin16 3" parent="coins" instance=ExtResource( 6 )]
+
+transform/local = Transform( -0.0275288, 0, -0.999621, 0, 1, 0, 0.999621, 0, -0.0275288, 8.40223, 3.78277, -1.28837 )
+respawnable = true
+
+[node name="Powerup" parent="." instance=ExtResource( 7 )]
+
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9155, 8.11021, -11.0436 )
 
 

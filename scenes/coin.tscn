@@ -15,7 +15,7 @@ input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 0.30922, 0, 0, 0, 0.30922, 0, 0, 0, 0.30922, 0, 0, 0 )
+shapes/0/transform = Transform( 0.405101, 0, 0, 0, 0.405101, 0, 0, 0, 0.405101, 0, 0, 0 )
 shapes/0/trigger = false
 space_override = 0
 gravity_point = false
@@ -35,7 +35,7 @@ respawnable = false
 [node name="Sprite3D" type="Sprite3D" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 2.57908, 0, 0, 0, 2.57908, 0, 0, 0, 2.57908, 0, 0, 0 )
+transform/local = Transform( 3.55864, 0, 0, 0, 3.55864, 0, 0, 0, 3.55864, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
@@ -71,7 +71,7 @@ region_rect = Rect2( 0, 0, 0, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.30922, 0, 0, 0, 0.30922, 0, 0, 0, 0.30922, 0, 0, 0 )
+transform/local = Transform( 0.405101, 0, 0, 0, 0.405101, 0, 0, 0, 0.405101, 0, 0, 0 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

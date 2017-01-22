@@ -16,7 +16,7 @@ flags/colarray_is_srgb = true
 params/blend_mode = 0
 params/depth_draw = 1
 params/line_width = 0.0
-fixed_flags/use_alpha = true
+fixed_flags/use_alpha = false
 fixed_flags/use_color_array = false
 fixed_flags/use_point_size = false
 fixed_flags/discard_alpha = false
@@ -51,7 +51,7 @@ data = Vector3Array( 1.0847, 0.0488, -0.1426, 1.094, 0.0488, 0, 1.0491, 0.0871, 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )
 velocity = 0.1
-gravity = 0.03
+gravity = 0.006
 amplitude = 1.0
 
 [node name="WaveMesh" type="MeshInstance" parent="."]

@@ -18,7 +18,7 @@ func _ready():
 
 func _fixed_process(delta):
 	if _wait_for_deletion == 0:
-		set_scale(get_scale()+Vector3(velocity,velocity,velocity))
+		set_scale(get_scale()+Vector3(velocity,0.0,velocity))
 		set_translation(get_translation()+Vector3(0.0,-gravity,0.0))
 		if(get_translation().y  < -0.16 * get_scale().y):
 #		if(get_scale().x > 20):

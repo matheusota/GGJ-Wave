@@ -25,10 +25,10 @@ func _body_enter(body):
 		return
 	if body.is_in_group("players"):
 		if respawnable:
-			get_node("/root/global").add_score(body.player_number, 2)
+			get_node("/root/global").add_score(body.player_number, 1)
 			hide()
 		else:
-			get_node("/root/global").add_score(body.player_number, 1)
+			get_node("/root/global").add_score(body.player_number, 2)
 			queue_free()
 
 func _fixed_process(delta):

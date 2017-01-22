@@ -5,7 +5,7 @@ export(int) var player_control = 0
 
 export(int) var jump_speed = 10
 onready var _super_jump = false
-onready var _super_jump_speed = 50
+onready var _super_jump_speed = 1000
 
 onready var _initial_pos = get_translation()
 
@@ -102,10 +102,11 @@ func _integrate_forces(state):
 			_reach_jump_max = false
 			if(_super_jump):
 				apply_impulse(Vector3(), normal * _super_jump_speed * get_mass())
+#				apply_impulse(Vector3(), -Vector3(diff.x, 0, diff.z) * get_mass())
 				_super_jump = false
 			else:
 				apply_impulse(Vector3(), normal * jump_speed * get_mass())
-				apply_impulse(Vector3(), -Vector3(diff.x, 0, diff.z) * get_mass())
+#				apply_impulse(Vector3(), -Vector3(diff.x, 0, diff.z) * get_mass())
 			get_node("Sprite3D").set_frame(4)
 	else:
 		if _reach_jump_max == false and get_linear_velocity().y < 0:
