@@ -16,6 +16,9 @@ func start():
 	# Hud
 	get_node("hud").reset()
 	
+	# Music!
+	get_node("Player_OST").play("game_ost")
+	
 	pass
 
 func _ready():

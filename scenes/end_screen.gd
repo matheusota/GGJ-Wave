@@ -4,6 +4,7 @@ onready var _global = get_node("/root/global")
 
 func _ready():
 	get_node("SimpleTextMenu").connect("option_selected", self, "_option_selected")
+	get_node("SamplePlayer").play("menu_ost")
 	
 	# Check which player has highest high-score
 	var p = 0

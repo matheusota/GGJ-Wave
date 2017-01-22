@@ -100,6 +100,7 @@ func _integrate_forces(state):
 		apply_impulse(Vector3(), diff * get_mass())
 		if Input.is_key_pressed(InputMap.get_action_list("jump")[player_control].scancode):
 			_reach_jump_max = false
+			get_node("SamplePlayer").play("jump")
 			if(_super_jump):
 				apply_impulse(Vector3(), normal * _super_jump_speed * get_mass())
 #				apply_impulse(Vector3(), -Vector3(diff.x, 0, diff.z) * get_mass())
@@ -146,6 +147,8 @@ func _fixed_process(delta):
 		get_parent().add_child(new_wave)
 		new_wave.set_amplitude(_jump_max_height * 2.0)
 		new_wave.set_translation(Vector3(get_translation().x, _water_height, get_translation().z))
+		get_node("SamplePlayer").play("splash")
+	
 	# Sprite
 	if(_sprite_stop == false) and get_node("Sprite3D").get_frame() != 4:
 		_sprite_timer += delta
