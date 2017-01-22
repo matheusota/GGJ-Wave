@@ -41,7 +41,7 @@ func _fixed_process(delta):
 			queue_free()
 	else:
 		if falling:
-			set_translation(Vector3(get_translation().x, get_translation().y - 0.1, get_translation().z))
+			set_translation(Vector3(get_translation().x, get_translation().y - 0.2, get_translation().z))
 			
 		_timer += delta
 		if _timer > _timer_limit:
