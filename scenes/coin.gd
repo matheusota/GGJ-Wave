@@ -36,11 +36,11 @@ func _body_enter(body):
 
 func _fixed_process(delta):
 	#coin waiting to respawn
-	if is_hidden() and respawnable:
-		_respawn_timer += delta
-		if _respawn_timer > _respawn_timer_limit:
-			_respawn_timer = 0.0
-			show()
+	#if is_hidden() and respawnable:
+	#	_respawn_timer += delta
+	#	if _respawn_timer > _respawn_timer_limit:
+	#		_respawn_timer = 0.0
+	#		show()
 	
 	#coin is falling
 	if falling:

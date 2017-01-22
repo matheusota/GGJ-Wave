@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scenes/powerup.gd" type="Script" id=1]
-[ext_resource path="res://assets/powerup.tex" type="Texture" id=2]
+[ext_resource path="res://assets/powerup.png" type="Texture" id=2]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -46,7 +46,7 @@ script/script = ExtResource( 1 )
 [node name="Sprite3D" type="Sprite3D" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.526652, 0, 0, 0, 0.526652, 0, 0, 0, 0.526652, 0, 0, 0 )
+transform/local = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null

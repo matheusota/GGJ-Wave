@@ -328,7 +328,7 @@ respawnable = true
 
 [node name="Powerup" parent="." instance=ExtResource( 7 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9155, 8.11021, -11.0436 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9155, 6.11021, -11.1353 )
 
 [node name="Player_OST" type="SamplePlayer" parent="."]
 
