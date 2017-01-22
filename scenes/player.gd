@@ -112,6 +112,7 @@ func _integrate_forces(state):
 			_reach_jump_max = true
 			_jump_max_height = get_translation().y
 		
+		# CORRIGI O BUG DO PULO SABENDO
 		var diff = direction * walk_speed - state.get_linear_velocity()
 		var vertdiff = aim_yaw[1] * diff.dot(aim_yaw[1])
 		diff -= vertdiff

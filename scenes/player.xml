@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="5" version="2.1" version_name="Godot Engine v2.1.stable.official">
-	<ext_resource path="res://scenes/player.gd" type="Script" index="0"></ext_resource>
 	<ext_resource path="res://assets/sprite_player1.tex" type="Texture" index="1"></ext_resource>
+	<ext_resource path="res://scenes/player.gd" type="Script" index="0"></ext_resource>
 	<resource type="CapsuleShape" path="local://1">
 		<real name="radius"> 0.4 </real>
 		<real name="height"> 0.5 </real>
