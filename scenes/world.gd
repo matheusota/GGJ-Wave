@@ -4,6 +4,9 @@ onready var _texture_vel = 0.3
 
 onready var _global = get_node("/root/global")
 
+onready var elapsed_time = 0
+onready var Coin = preload("res://scenes/coin.tscn")
+
 func start():
 	# Configure players
 	var conf = _global._player_config
@@ -28,10 +31,24 @@ func _ready():
 	pass
 
 func _fixed_process(delta):
+	elapsed_time += delta
+	
 	# Update match timer
 	_global._match_timer -= delta
 	
 	var rect = get_node("Water").get_region_rect()
 	get_node("Water").set_region_rect(Rect2(rect.pos + Vector2(_texture_vel, _texture_vel), rect.size))
 	
+	if elapsed_time >= 3:
+		var new_coin = Coin.instance()
+		add_child(new_coin)
+		var new_x = rand_range(get_node("Floor").get_translation().x - get_node("Floor").get_scale().x, get_node("Floor").get_translation().x + get_node("Floor").get_scale().x)
+		var new_z = rand_range(get_node("Floor").get_translation().z - get_node("Floor").get_scale().z, get_node("Floor").get_translation().z + get_node("Floor").get_scale().z)
+		var new_y = 50
+		
+		new_coin.set_translation(Vector3(new_x, new_y, new_z))
+		new_coin.falling = true
+		
+		elapsed_time = 0
+		
 	pass

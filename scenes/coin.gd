@@ -1,6 +1,7 @@
 extends Area
 
 export(bool) var respawnable = false
+var falling = false
 
 onready var _respawn_timer = 0.0
 onready var _respawn_timer_limit = 10.0
@@ -30,14 +31,21 @@ func _body_enter(body):
 		else:
 			get_node("/root/global").add_score(body.player_number, 2)
 			queue_free()
+	else:
+		falling = false
 
 func _fixed_process(delta):
+	#coin waiting to respawn
 	if is_hidden() and respawnable:
 		_respawn_timer += delta
 		if _respawn_timer > _respawn_timer_limit:
 			_respawn_timer = 0.0
 			show()
 	
+	#coin is falling
+	if falling:
+		set_translation(Vector3(get_translation().x, get_translation().y - 0.1, get_translation().z))
+		
 	_timer += delta
 	if _timer > _timer_limit:
 		_timer -= _timer_limit
