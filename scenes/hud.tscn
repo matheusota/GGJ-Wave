@@ -32,7 +32,7 @@ tracks/3/type = "value"
 tracks/3/path = NodePath("SamplePlayer:play/play")
 tracks/3/interp = 1
 tracks/3/imported = false
-tracks/3/keys = { "times":FloatArray( 3 ), "transitions":FloatArray( 1 ), "update":2, "values":[ "whistle" ] }
+tracks/3/keys = { "times":FloatArray( 0, 1, 2, 3 ), "transitions":FloatArray( 1, 1, 1, 1 ), "update":2, "values":[ "coin", "coin", "coin", "whistle" ] }
 
 [sub_resource type="Animation" id=2]
 
